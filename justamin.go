@@ -7,7 +7,9 @@ import (
 )
 
 func Duration(moment time.Time) (humanized string) {
-	duration := moment.Sub(time.Now())
+	now := time.Now()
+	duration := moment.Sub(now)
+	fmt.Printf("%+v - %+v : %+v\n", moment, now, duration)
 
 	return Humanize(duration)
 }
