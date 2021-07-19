@@ -36,6 +36,8 @@ func TestHumanize(t *testing.T) {
 		{time.Duration(2.13 * 7 * 24 * 60 * 60 * 1000000000), "in 2 weeks"},
 	}
 
+	// EnableDebug()
+
 	for _, c := range cases {
 
 		res := Humanize(c.duration)

@@ -69,10 +69,10 @@ func Duration(moment time.Time) (humanized string) {
 	now := time.Now()
 	duration := moment.Sub(now)
 
-	debug(fmt.Sprintf("%+v - %+v : %+v", moment, now, duration))
+	debug(fmt.Sprintf("time: %+v - now: %+v : duration: %+v", moment, now, duration))
 
 	humanized = Humanize(duration)
-	debug(fmt.Sprintf("%+v", humanized))
+	debug(fmt.Sprintf("humanized: %+v", humanized))
 
 	return humanized
 }
@@ -81,54 +81,80 @@ func Humanize(duration time.Duration) (humanized string) {
 	var format timeFormat
 	if duration < 0 {
 		format = formats.past
+		debug("PAST")
 		duration = -duration
 	} else {
 		format = formats.future
+		debug("FUTURE")
 	}
+	debug(fmt.Sprintf("duration: %+v", duration))
 
 	if duration < 1000000000 {
 		return format.now
 	}
 
 	seconds := int64(math.Round(duration.Seconds()))
+	debug(fmt.Sprintf("seconds: %+v", seconds))
 
 	if seconds == 1 {
-		return fmt.Sprint(format.second)
+		humanized = fmt.Sprint(format.second)
+		debug(humanized)
+		return humanized
 	} else if seconds < 60 {
-		return fmt.Sprintf(format.seconds, seconds)
+		humanized = fmt.Sprintf(format.seconds, seconds)
+		debug(humanized)
+		return humanized
 	}
 
 	minutes := int64(math.Round(duration.Minutes()))
+	debug(fmt.Sprintf("minutes: %+v", minutes))
 
 	if minutes == 1 {
-		return fmt.Sprint(format.minute)
+		humanized = fmt.Sprint(format.minute)
+		debug(humanized)
+		return humanized
 	} else if minutes < 60 {
-		return fmt.Sprintf(format.minutes, minutes)
+		humanized = fmt.Sprintf(format.minutes, minutes)
+		debug(humanized)
+		return humanized
 	}
 
 	hours := int64(math.Round(duration.Hours()))
+	debug(fmt.Sprintf("hours: %+v", hours))
 
 	if hours == 1 {
-		return fmt.Sprint(format.hour)
+		humanized = fmt.Sprint(format.hour)
+		debug(humanized)
+		return humanized
 	} else if hours < 24 {
-		return fmt.Sprintf(format.hours, hours)
+		humanized = fmt.Sprintf(format.hours, hours)
+		debug(humanized)
+		return humanized
 	}
 
 	days := int64(math.Round(duration.Hours() / 24))
+	debug(fmt.Sprintf("days: %+v", days))
 
 	if days == 1 {
-		return fmt.Sprint(format.day)
+		humanized = fmt.Sprint(format.day)
+		debug(humanized)
+		return humanized
 	} else if days < 7 {
-		return fmt.Sprintf(format.days, days)
+		humanized = fmt.Sprintf(format.days, days)
+		debug(humanized)
+		return humanized
 	}
 
 	weeks := int64(math.Round(duration.Hours() / 168))
+	debug(fmt.Sprintf("weeks: %+v", weeks))
 
 	if weeks == 1 {
-		return fmt.Sprint(format.week)
-	} else if weeks < 7 {
-		return fmt.Sprintf(format.weeks, weeks)
+		humanized = fmt.Sprint(format.week)
+		debug(humanized)
+		return humanized
+	} else {
+		humanized = fmt.Sprintf(format.weeks, weeks)
+		debug(humanized)
+		return humanized
 	}
-
-	return humanized
 }
