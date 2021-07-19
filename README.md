@@ -22,10 +22,10 @@ func main() {
 
 	// ...
 	
-	d := time.Duration(-49 * 3600 * 1000000000)
+	d := time.Duration(49 * 3600 * 1000000000)
 
 	humanized := justamin.Humanize(d)
-	// will return "2 days ago"
+	// will return "in 2 days"
 
 	// ...
 }
