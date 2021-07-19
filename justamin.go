@@ -44,7 +44,7 @@ var formats = timeFormats{
 		seconds: "in %d seconds",
 		minute:  "in a minute",
 		minutes: "in %d minutes",
-		hour:    "ain n hour",
+		hour:    "in an hour",
 		hours:   "in %d hours",
 		day:     "in a day",
 		days:    "in %d days",
@@ -53,12 +53,28 @@ var formats = timeFormats{
 	},
 }
 
+var DEBUG = false
+
+func EnableDebug() {
+	DEBUG = true
+}
+
+func debug(msg string) {
+	if DEBUG {
+		fmt.Println(msg)
+	}
+}
+
 func Duration(moment time.Time) (humanized string) {
 	now := time.Now()
 	duration := moment.Sub(now)
-	fmt.Printf("%+v - %+v : %+v\n", moment, now, duration)
 
-	return Humanize(duration)
+	debug(fmt.Sprintf("%+v - %+v : %+v", moment, now, duration))
+
+	humanized = Humanize(duration)
+	debug(fmt.Sprintf("%+v", humanized))
+
+	return humanized
 }
 
 func Humanize(duration time.Duration) (humanized string) {
